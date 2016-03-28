@@ -378,6 +378,42 @@ class BstHeight
         bottomView(root.left,hd+1,map);
         bottomView(root.right,hd-1,map);
     }
+    
+    
+    public void findMinInTree()
+    {
+        System.out.println("the minimum node in the tree is ");
+        System.out.println(findMinInTree(root));
+    }
+    
+    public int findMinInTree(Node root){
+        if(root==null){
+            return Integer.MIN_VALUE; 
+        }
+        Node current=root;
+        while(current.left!=null){
+            current=current.left;
+        }
+        return current.value;
+    }
+    
+    public void findMaxInTree()
+    {
+        System.out.println("the maximum node in the tree is ");
+        System.out.println(findMaxInTree(root));
+    }
+    
+    public int findMaxInTree(Node root){
+        if(root==null){
+            return Integer.MAX_VALUE; 
+        }
+        Node current=root;
+        while(current.right!=null){
+            current=current.right;
+        }
+        return current.value;
+    }
+    
 	public static void main (String[] args) throws java.lang.Exception
 	{
 		BstHeight bst=new BstHeight();
@@ -403,5 +439,7 @@ class BstHeight
 		bst.verticalSum();
 		bst.topView();
 		bst.bottomView();
+		bst.findMinInTree();
+		bst.findMaxInTree();
 	}
 }
