@@ -213,6 +213,64 @@ class BstHeight
         printallNonSiblingNodes(root.left);
         printallNonSiblingNodes(root.right);
     }
+    public void levelOrderTraversal()
+    {
+        System.out.println("Level order traversal for the bst is ");
+        levelOrderTraversal(root);
+    }
+    
+    
+    public void levelOrderTraversal(Node root){
+        Queue<Node> q=new LinkedList<Node>();
+        if(root==null){
+            return;
+        }
+        q.add(root);
+        
+        while (!q.isEmpty())
+        {
+            Node current=q.poll();
+            System.out.print(current.value+":");
+            if(current.left!=null){
+                q.add(current.left);
+            }
+            if(current.right!=null){
+                q.add(current.right);
+            }
+        }
+    }
+    public void reverseLevelOrderTraversal()
+    {
+        System.out.println("reverse level order traversal");
+        
+        reverseLevelOrderTraversal(root);
+    }
+    
+    public void reverseLevelOrderTraversal(Node root)
+    {
+        
+        if(root==null){
+            return;
+        }
+        
+        Queue<Node> q=new LinkedList<Node>();
+        Stack<Node> s=new Stack<Node>();
+        q.add(root);
+        while(!q.isEmpty()){
+            Node current=q.poll();
+            s.push(current);
+            if(current.left!=null){
+                q.add(current.left);
+            }
+            if(current.right!=null){
+                q.add(current.right);
+            }
+        }
+        while(!s.isEmpty()){
+            System.out.print(s.pop().value +":");
+        }
+        
+    }
     
 	public static void main (String[] args) throws java.lang.Exception
 	{
@@ -233,7 +291,7 @@ class BstHeight
 		System.out.println("Reverse inorder traversal of the tree");
 		bst.reverseInorder();
 		bst.printallNonSiblingNodes();
-		
-		
+		bst.levelOrderTraversal();
+		bst.reverseLevelOrderTraversal();
 	}
 }
