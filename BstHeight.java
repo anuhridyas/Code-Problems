@@ -241,6 +241,7 @@ class BstHeight
     }
     public void reverseLevelOrderTraversal()
     {
+        System.out.println();
         System.out.println("reverse level order traversal");
         
         reverseLevelOrderTraversal(root);
@@ -271,7 +272,112 @@ class BstHeight
         }
         
     }
+    public void horizontalsum()
+    {
+        System.out.println();
+        System.out.println("horizonatal sum ");
+        HashMap<Integer,Integer> map=new HashMap<Integer,Integer>();
+        horizontalsum(root,0,map);
+        System.out.println(map.size());
+       /* Set keyset=map.keySet();
+        for(int i=0;i<keyset.size();i++)
+        System.out.println("level :"+map.get(i)+"value");*/
+        
+        
+        for (int key : map.keySet()) {
+        System.out.println("level: " + key + " sum: " + map.get(key));
+    }
+
+    }
     
+    
+    public void horizontalsum(Node root,int level,HashMap<Integer,Integer> map){
+        if(root==null){
+            return ;
+        }
+        if(map.get(level)==null)
+        {
+            map.put(level,root.value);
+        }
+        else 
+        {
+            int sum=map.get(level)+root.value;
+            map.put(level,sum);
+        }
+        horizontalsum(root.left,level+1,map);
+        horizontalsum(root.right,level+1,map);
+    }
+    
+    public void verticalSum(){
+        System.out.println("vertical sum of nodes ");
+        HashMap<Integer,Integer> map=new HashMap<Integer,Integer>();
+        verticalSum(root,0,map);
+        
+        for (int key : map.keySet()) {
+        System.out.println("horizontal distance from rooot : " + key + " sum: " + map.get(key));
+        
+    }
+    }
+    
+    public void verticalSum (Node root,int level, HashMap<Integer,Integer> map)
+    {
+        if(root ==null){
+            return;
+        }
+        if(map.get(level)==null)
+        {
+            map.put(level,root.value);
+        }
+        else {
+            int sum =map.get(level)+root.value;
+            map.put(level,sum);
+        }
+        
+      verticalSum(root.left,level-1,map);
+      verticalSum(root.right,level+1,map);
+    }
+    
+    
+    public void topView()
+    {
+        System.out.println("the top view of the bst ");
+        HashSet<Integer> set=new HashSet<Integer>();
+        topview(root,0,set);
+    }
+    
+    public void topview(Node root,int hd,HashSet<Integer> set){
+        if(root==null){
+            return;
+        }
+        if(set.add(hd))
+        {
+            System.out.println(root.value);
+            
+        }
+        topview(root.left,hd-1,set);
+        topview(root.right,hd+1,set);
+    }
+    
+    public void bottomView(){
+        System.out.println("bottom view of the tree");
+        HashMap<Integer,Integer> map=new HashMap<Integer,Integer>();
+        bottomView(root,0,map);
+        
+        for (int key : map.keySet()) {
+        System.out.println("bottomView from rooot : "+ map.get(key));
+        
+    }
+    }
+    
+    public void bottomView(Node root,int hd,HashMap<Integer,Integer> map){
+        if(root==null){
+            return ;
+        }
+        map.put(hd,root.value);
+        
+        bottomView(root.left,hd+1,map);
+        bottomView(root.right,hd-1,map);
+    }
 	public static void main (String[] args) throws java.lang.Exception
 	{
 		BstHeight bst=new BstHeight();
@@ -293,5 +399,9 @@ class BstHeight
 		bst.printallNonSiblingNodes();
 		bst.levelOrderTraversal();
 		bst.reverseLevelOrderTraversal();
+		bst.horizontalsum();
+		bst.verticalSum();
+		bst.topView();
+		bst.bottomView();
 	}
 }
