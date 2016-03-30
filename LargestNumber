@@ -1,0 +1,52 @@
+package com.company;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Comparator;
+
+ class largestComparator implements Comparator<String>
+{
+    public int compare(String s1, String s2){
+        String append=s1+s2;
+        String revAppend=s2+s1;
+        //return -append.compareTo(revAppend);
+        return revAppend.compareTo(append);
+    }
+
+
+}
+
+public class LargestNumber {
+    public static void findLargest(int[] arr){
+        StringBuffer sb=new StringBuffer();
+        String[] str=new String[arr.length];
+        int c=0;
+        for(int i:arr){
+            str[c++]=String.valueOf(i);
+        }
+        Arrays.sort(str, new largestComparator());
+        for(String s:str){
+            sb.append(s);
+        }
+        if(sb.charAt(0)=='0'&& sb.length()>0){
+            sb.deleteCharAt(0);
+        }
+        System.out.print(sb);
+
+
+    }
+    public static void main(String[] args) throws IOException{
+        LargestNumber largestNumber=new LargestNumber();
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Enter the size of array ");
+        int n =Integer.parseInt(br.readLine());
+        System.out.println("Enter the array elements");
+        int[] arr=new int[n];
+        for(int i=0;i<n;i++){
+           arr[i]=Integer.parseInt(br.readLine()) ;
+        }
+        findLargest(arr);
+    }
+}
