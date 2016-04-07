@@ -1,0 +1,64 @@
+package com.company;
+
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
+/**
+ * Created by jiteshnambiar on 3/31/16.
+ */
+public class MedianOfInteger {
+    PriorityQueue<Integer> minHeap= new PriorityQueue<>();
+    PriorityQueue<Integer> maxHeap=new PriorityQueue<>(Comparator.reverseOrder());
+    int numberOfElements=0;
+
+    public void addNumber(int number){
+        maxHeap.add(number);
+        if(numberOfElements%2==0){
+            if(minHeap.isEmpty()){
+                numberOfElements++;
+                return;
+            }
+            else{
+                if(minHeap.peek()<maxHeap.peek()){
+                    maxHeap.offer(minHeap.poll());
+                    minHeap.offer(maxHeap.poll());
+
+                }
+            }
+        }else{
+            minHeap.add(maxHeap.poll());
+        }
+        numberOfElements++;
+    }
+
+    public double getMedian()
+    {
+        double median=0;
+        if(numberOfElements%2==0){
+          median=  (minHeap.peek()+maxHeap.peek())/2;
+        }
+        else{
+            median=maxHeap.peek();
+        }
+    return median;
+    }
+        public static  void main (String[] args)
+    {
+        MedianOfInteger medianOfInteger=new MedianOfInteger();
+        medianOfInteger.addNumber(12);
+        medianOfInteger.addNumber(34);
+        medianOfInteger.addNumber(3);
+        medianOfInteger.addNumber(8);
+        medianOfInteger.addNumber(32);
+        System.out.println(medianOfInteger.getMedian());
+        medianOfInteger.addNumber(59);
+        medianOfInteger.addNumber(13);
+        medianOfInteger.addNumber(3);
+        medianOfInteger.addNumber(45);
+        medianOfInteger.addNumber(67);
+        System.out.println(medianOfInteger.getMedian());
+
+
+    }
+}
