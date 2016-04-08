@@ -1,3 +1,4 @@
+
 package com.company;
 
 /**
@@ -26,9 +27,38 @@ public class InterLeaving {
         printAllInterleaving(s1,s2.substring(1),soFar+s2.charAt(0));
     }
 
+
+    public static boolean checkInterleaving(String first,String second,String third){
+        if(third.length()!=first.length()+second.length()){
+            return false;
+        }
+        int k=0;
+        int i=0,j=0;
+        while (k<third.length()){
+            if(i<first.length() && first.charAt(i)==third.charAt(k)) {
+                i++;k++;
+            }else if(j<second.length() && second.charAt(j)==third.charAt(k)  ){
+                j++;k++;
+            }
+            else{
+                return false;
+            }
+        }
+        if(i!=first.length() || j!=second.length() || k!=third.length()){
+            return false;
+        }
+
+    return true;}
+
     public static void main(String[] args){
         String first="ab";
         String second="cd";
         printAllInterleaving(first,second);
+        String third="abcd";
+        if(checkInterleaving(first,second,third)){
+            System.out.println("true");
+        }else{
+            System.out.println("false");
+        }
     }
 }
